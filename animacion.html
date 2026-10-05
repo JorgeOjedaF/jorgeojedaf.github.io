@@ -1,0 +1,200 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Ejemplo de animación</title>
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+html, body {
+    width: 100%;
+    height: 100%;
+    margin: 0;
+}
+
+body {
+    overflow: hidden;
+    background: #050816;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: Arial, sans-serif;
+}
+
+/* Fondo animado */
+.background {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    background:
+        radial-gradient(circle at 50% 50%, #172554 0%, #050816 55%, #02030a 100%);
+}
+
+/* Contenedor principal */
+.scene {
+    position: relative;
+    width: 300px;
+    height: 300px;
+}
+
+/* Círculo central */
+.core {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+    background: #60a5fa;
+    box-shadow:
+        0 0 20px #60a5fa,
+        0 0 50px #3b82f6,
+        0 0 100px #2563eb;
+    animation: pulse 1.5s ease-in-out infinite;
+}
+
+/* Anillos */
+.ring {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 80px;
+    height: 80px;
+    border: 2px solid #60a5fa;
+    border-radius: 50%;
+    transform: translate(-50%, -50%);
+    opacity: 0;
+    animation: expand 3s ease-out infinite;
+}
+
+.ring:nth-child(2) {
+    animation-delay: 1s;
+}
+
+.ring:nth-child(3) {
+    animation-delay: 2s;
+}
+
+/* Partículas */
+.particle {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+    background: #93c5fd;
+    box-shadow: 0 0 12px #60a5fa;
+    transform-origin: 0 0;
+    animation: orbit 4s linear infinite;
+}
+
+.particle:nth-child(4) {
+    animation-duration: 3s;
+    width: 6px;
+    height: 6px;
+}
+
+.particle:nth-child(5) {
+    animation-duration: 5s;
+    animation-delay: -1s;
+    width: 5px;
+    height: 5px;
+}
+
+.particle:nth-child(6) {
+    animation-duration: 6s;
+    animation-delay: -2s;
+    width: 7px;
+    height: 7px;
+}
+
+/* Texto */
+.label {
+    position: absolute;
+    top: calc(50% + 75px);
+    width: 100%;
+    text-align: center;
+    color: white;
+    font-size: 18px;
+    letter-spacing: 4px;
+    text-transform: uppercase;
+    opacity: 0.9;
+    animation: fade 1.5s ease-in-out infinite alternate;
+}
+
+/* Animaciones */
+
+@keyframes pulse {
+    0%, 100% {
+        transform: translate(-50%, -50%) scale(0.85);
+    }
+
+    50% {
+        transform: translate(-50%, -50%) scale(1.15);
+    }
+}
+
+@keyframes expand {
+    0% {
+        width: 70px;
+        height: 70px;
+        opacity: 0.8;
+    }
+
+    100% {
+        width: 280px;
+        height: 280px;
+        opacity: 0;
+    }
+}
+
+@keyframes orbit {
+    from {
+        transform: rotate(0deg) translateX(120px);
+    }
+
+    to {
+        transform: rotate(360deg) translateX(120px);
+    }
+}
+
+@keyframes fade {
+    from {
+        opacity: 0.35;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<div class="background"></div>
+
+<div class="scene">
+
+    <div class="core"></div>
+
+    <div class="ring"></div>
+    <div class="ring"></div>
+    <div class="ring"></div>
+
+    <div class="particle"></div>
+    <div class="particle"></div>
+    <div class="particle"></div>
+
+    <div class="label">Remote Test</div>
+
+</div>
+
+</body>
+</html>
