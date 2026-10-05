@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>Cronometro</title>
+
+<style>
+    * {
+        box-sizing: border-box;
+    }
+
+    body {
+        margin: 0;
+        min-height: 100vh;
+
+        display: flex;
+        justify-content: center;
+        align-items: center;
+
+        background: #ffffff;
+        font-family: Arial, sans-serif;
+        color: #111827;
+    }
+
+    .pc {
+        width: 360px;
+        padding: 30px;
+
+        border: 1px solid rgba(0, 0, 0, 0.08);
+        border-radius: 14px;
+
+        text-align: center;
+
+        transition:
+            background-color 0.4s ease,
+            border-color 0.4s ease;
+    }
+
+    .timer {
+        font-family: "Courier New", monospace;
+        font-size: 48px;
+        font-weight: bold;
+        letter-spacing: 2px;
+    }
+
+    .indicator {
+        display: inline-block;
+
+        width: 9px;
+        height: 9px;
+
+        margin-right: 6px;
+
+        border-radius: 50%;
+        background: #16a34a;
+    }
+</style>
+</head>
+
+<body>
+
+<div class="pc" id="pc">
+
+    <div class="timer" id="timer">
+        00:00:00
+    </div>
+
+</div>
+
+<script>
+
+const pc = document.getElementById("pc");
+const timer = document.getElementById("timer");
+
+const startTime = performance.now();
+
+const colors = [
+    "#ffffff",
+    "#fff7ed",
+    "#fef3c7",
+    "#ecfccb",
+    "#f0fdf4",
+    "#dcfce7",
+    "#ccfbf1",
+    "#cffafe",
+    "#e0f2fe",
+    "#dbeafe",
+    "#eff6ff",
+    "#e0e7ff",
+    "#ede9fe",
+    "#f5f3ff",
+    "#fae8ff",
+    "#fce7f3",
+    "#fdf2f8",
+    "#ffe4e6",
+    "#fff1f2",
+    "#fee2e2",
+    "#ffedd5",
+    "#fed7aa",
+    "#fef2f2",
+    "#fefce8",
+    "#f7fee7",
+    "#ecfeff",
+    "#f0fdfa",
+    "#f0f9ff",
+    "#eef2ff",
+    "#faf5ff"
+];
+
+let lastSecond = -1;
+
+function update() {
+
+    const elapsed =
+        performance.now() - startTime;
+
+    const totalCentiseconds =
+        Math.floor(elapsed / 10);
+
+    const minutes =
+        Math.floor(totalCentiseconds / 6000);
+
+    const seconds =
+        Math.floor(
+            (totalCentiseconds % 6000) / 100
+        );
+
+    const centiseconds =
+        totalCentiseconds % 100;
+
+    timer.textContent =
+        String(minutes).padStart(2, "0") +
+        ":" +
+        String(seconds).padStart(2, "0") +
+        ":" +
+        String(centiseconds).padStart(2, "0");
+
+
+    /*
+        Cambiar el color solamente una vez
+        por cada segundo.
+    */
+
+    if (seconds !== lastSecond) {
+
+        lastSecond = seconds;
+
+        const colorIndex =
+            seconds % colors.length;
+
+        document.body.style.backgroundColor =
+            colors[colorIndex];
+    }
+
+    requestAnimationFrame(update);
+}
+
+update();
+
+</script>
+
+</body>
+</html>
